@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,500;0,700;0,800;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.625rem;
+
+    /* Anti-Net exact palette converted to OKLCH */
+    /* #010922 — deep navy background */
+    --background: 0.07 0.03 268;
+    /* #fff */
+    --foreground: 0.99 0 0;
+    /* #151941 — card / navbar */
+    --card: 0.17 0.05 268;
+    --card-foreground: 0.99 0 0;
+    --popover: 0.17 0.05 268;
+    --popover-foreground: 0.99 0 0;
+    /* #8081d8 — accent/CTA purple */
+    --primary: 0.58 0.17 272;
+    --primary-foreground: 0.99 0 0;
+    /* #151941 */
+    --secondary: 0.17 0.05 268;
+    --secondary-foreground: 0.99 0 0;
+    /* rgba(99,88,189,0.2) panels */
+    --muted: 0.17 0.05 268;
+    --muted-foreground: 0.72 0.04 265;
+    --accent: 0.58 0.17 272;
+    --accent-foreground: 0.99 0 0;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.24 0.05 268;
+    --input: 0.24 0.05 268;
+    --ring: 0.58 0.17 272;
+    /* rgb(59,14,143) — footer bottom bar */
+    --footer-bar: 0.28 0.22 282;
+    --chart-1: 0.58 0.17 272;
+    --chart-2: 0.65 0.2 200;
+    --chart-3: 0.7 0.15 290;
+    --chart-4: 0.65 0.18 150;
+    --chart-5: 0.7 0.22 30;
+    --sidebar: 0.17 0.05 268;
+    --sidebar-foreground: 0.99 0 0;
+    --sidebar-primary: 0.58 0.17 272;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.17 0.05 268;
+    --sidebar-accent-foreground: 0.99 0 0;
+    --sidebar-border: 0.24 0.05 268;
+    --sidebar-ring: 0.58 0.17 272;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", "Outfit", system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-outfit {
+    font-family: "Outfit", sans-serif;
+  }
+  .font-roboto {
+    font-family: "Roboto", sans-serif;
+  }
+  .font-inter {
+    font-family: "Inter", sans-serif;
+  }
+
+  /* Slateblue panel bg */
+  .bg-slate-panel {
+    background-color: rgba(99, 88, 189, 0.2);
+  }
+
+  /* footer bottom bar */
+  .bg-footer-bar {
+    background-color: oklch(var(--footer-bar));
+  }
+}
+
+/* Navbar slide-in animations */
+@keyframes slideRight {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideTop {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-right {
+  animation: slideRight 0.8s ease forwards;
+}
+.animate-slide-top {
+  animation: slideTop 0.5s ease forwards;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
