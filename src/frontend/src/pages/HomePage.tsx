@@ -1,4 +1,4 @@
-import { BookOpen, Shield, ShieldOff, UserX } from "lucide-react";
+import { BookOpen, Lock, Shield, ShieldOff, UserX, Zap } from "lucide-react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
@@ -45,6 +45,23 @@ const NODES = [
   { id: "n6", top: "75%", left: "65%", size: 36 },
 ];
 
+const TRUST_INDICATORS = [
+  { icon: <Lock size={14} />, label: "Anonymous Reporting" },
+  { icon: <Shield size={14} />, label: "Secure & Private" },
+  { icon: <Zap size={14} />, label: "Fast Response" },
+];
+
+function SectionAccent() {
+  return (
+    <div className="flex justify-center mb-3">
+      <div
+        className="rounded-full"
+        style={{ width: 60, height: 3, backgroundColor: "#8081d8" }}
+      />
+    </div>
+  );
+}
+
 export default function HomePage() {
   const logosRef = useRef<HTMLDivElement>(null);
 
@@ -63,19 +80,19 @@ export default function HomePage() {
       <section
         id="home"
         className="w-full min-h-[550px] flex items-center"
-        style={{ backgroundColor: "#010922" }}
+        style={{ backgroundColor: "#010922", scrollMarginTop: "80px" }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 py-16 w-full flex flex-col md:flex-row items-center gap-10">
           {/* Left */}
           <div className="flex-1 flex flex-col gap-6">
             <h1
               className="font-outfit font-extrabold text-white leading-none capitalize"
-              style={{ fontSize: "clamp(36px, 6vw, 87px)" }}
+              style={{ fontSize: "clamp(40px, 6.5vw, 96px)" }}
             >
               Creating a Safer Digital Space.
             </h1>
             <p
-              className="font-roboto font-medium text-white"
+              className="font-roboto font-medium text-white/80"
               style={{ fontSize: "clamp(16px, 2vw, 24px)" }}
             >
               Empowering voices, silencing hate – your digital shield against
@@ -90,6 +107,22 @@ export default function HomePage() {
             >
               View Connections
             </button>
+            {/* Trust badges */}
+            <div className="flex flex-wrap gap-3 mt-1">
+              {TRUST_INDICATORS.map((t) => (
+                <span
+                  key={t.label}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-[13px] font-inter font-medium"
+                  style={{
+                    backgroundColor: "rgba(128,129,216,0.18)",
+                    border: "1px solid rgba(128,129,216,0.3)",
+                  }}
+                >
+                  <span style={{ color: "#8081d8" }}>{t.icon}</span>
+                  {t.label}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Right — decorative illustration */}
@@ -191,9 +224,10 @@ export default function HomePage() {
         id="logos"
         ref={logosRef}
         className="w-full py-14"
-        style={{ backgroundColor: "#010922" }}
+        style={{ backgroundColor: "#010922", scrollMarginTop: "80px" }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <SectionAccent />
           <h2 className="text-center text-white font-inter font-extrabold text-[34px] mb-10">
             We're Working With
           </h2>
@@ -228,14 +262,15 @@ export default function HomePage() {
       <section
         id="about"
         className="w-full py-14"
-        style={{ backgroundColor: "#010922" }}
+        style={{ backgroundColor: "#010922", scrollMarginTop: "80px" }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <SectionAccent />
           <h2 className="text-center text-white font-inter font-extrabold text-[34px] mb-10">
             About
           </h2>
           <div className="flex flex-col md:flex-row gap-10 items-stretch">
-            {/* Left */}
+            {/* Left — trust indicators */}
             <div
               className="flex-1 rounded-xl min-h-[320px] flex items-center justify-center"
               style={{
@@ -244,16 +279,29 @@ export default function HomePage() {
                 border: "1px solid rgba(128,129,216,0.2)",
               }}
             >
-              <div className="text-center px-8">
-                <div
-                  className="mx-auto mb-4 w-20 h-20 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "rgba(128,129,216,0.25)" }}
-                >
-                  <Shield size={40} style={{ color: "#8081d8" }} />
-                </div>
-                <p className="text-white/60 font-inter text-sm">
-                  Social Media Platforms &amp; Network of Users
-                </p>
+              <div className="flex flex-col gap-5 px-8 py-6 w-full max-w-xs">
+                {[
+                  { icon: <Shield size={20} />, text: "100% Anonymous" },
+                  { icon: <Lock size={20} />, text: "End-to-End Secure" },
+                  {
+                    icon: <ShieldOff size={20} />,
+                    text: "Zero Tolerance Policy",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.text}
+                    className="flex items-center gap-4 rounded-lg px-4 py-3"
+                    style={{
+                      backgroundColor: "rgba(128,129,216,0.12)",
+                      border: "1px solid rgba(128,129,216,0.2)",
+                    }}
+                  >
+                    <span style={{ color: "#8081d8" }}>{item.icon}</span>
+                    <span className="font-inter font-semibold text-white text-[16px]">
+                      {item.text}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
             {/* Right */}
@@ -274,7 +322,7 @@ export default function HomePage() {
                   OUR MISSION
                 </p>
                 <p
-                  className="font-roboto font-medium text-white"
+                  className="font-roboto font-medium text-white/80"
                   style={{
                     fontSize: "clamp(16px, 2vw, 24px)",
                     lineHeight: "1.5",
@@ -303,9 +351,10 @@ export default function HomePage() {
       <section
         id="features"
         className="w-full py-14"
-        style={{ backgroundColor: "#010922" }}
+        style={{ backgroundColor: "#010922", scrollMarginTop: "80px" }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <SectionAccent />
           <h2 className="text-center text-white font-inter font-extrabold text-[34px] mb-10">
             Features
           </h2>
@@ -313,8 +362,11 @@ export default function HomePage() {
             {FEATURES.map((f, i) => (
               <div
                 key={f.title}
-                className="flex flex-col gap-4 rounded-md p-6"
-                style={{ backgroundColor: "#151941" }}
+                className="flex flex-col gap-4 rounded-md p-6 border-l-2 cursor-default transition-all duration-200 hover:opacity-90"
+                style={{
+                  backgroundColor: "#151941",
+                  borderLeftColor: "rgba(128,129,216,0.6)",
+                }}
                 data-ocid={`features.item.${i + 1}`}
               >
                 <div style={{ color: "#8081d8" }}>{f.icon}</div>
@@ -344,21 +396,25 @@ export default function HomePage() {
       <section
         id="report"
         className="w-full py-14"
-        style={{ backgroundColor: "#010922" }}
+        style={{ backgroundColor: "#010922", scrollMarginTop: "80px" }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <SectionAccent />
           <h2 className="text-center text-white font-inter font-extrabold text-[34px] mb-10">
             Report Incidence
           </h2>
           <div
-            className="rounded-md p-8 shadow-card"
-            style={{ backgroundColor: "#151941" }}
+            className="rounded-md p-8"
+            style={{
+              backgroundColor: "#151941",
+              border: "1px solid rgba(128,129,216,0.3)",
+            }}
           >
             <h3 className="font-inter font-bold text-white text-[22px] mb-4">
               Let's Work Together
             </h3>
-            <p className="font-inter text-white/80 text-[16px] leading-relaxed text-justify mb-8">
-              the collaborative effort between users and the platform to address
+            <p className="font-inter text-white/80 text-[16px] leading-relaxed text-justify mb-4">
+              The collaborative effort between users and the platform to address
               and prevent cyberbullying. By reporting incidents, users become
               active participants in creating a safer online community, while
               the platform ensures these reports are handled with care and
@@ -366,6 +422,15 @@ export default function HomePage() {
               requires teamwork, trust, and shared responsibility to make the
               digital world a better place for everyone.
             </p>
+            <div className="flex items-center gap-2 mb-8">
+              <Lock size={16} style={{ color: "#2dd4bf" }} />
+              <span
+                className="font-inter text-[14px]"
+                style={{ color: "#2dd4bf" }}
+              >
+                Your identity is protected — all reports are confidential.
+              </span>
+            </div>
             <div className="flex justify-end">
               <Link
                 to="/report"

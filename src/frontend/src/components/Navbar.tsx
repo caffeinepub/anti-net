@@ -14,6 +14,7 @@ const NAV_LINKS: NavLink[] = [
   { label: "Features", to: "/#features", scrollId: "features" },
   { label: "Report", to: "/#report", scrollId: "report" },
   { label: "Register", to: "/register" },
+  { label: "Admin", to: "/admin" },
 ];
 
 function setColor(el: EventTarget, color: string) {
@@ -51,7 +52,7 @@ export default function Navbar() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full"
+      className="sticky top-0 z-50 w-full border-b border-white/10"
       style={{ backgroundColor: "#151941" }}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-16">
@@ -77,6 +78,7 @@ export default function Navbar() {
           aria-label="Main navigation"
         >
           {NAV_LINKS.map((link, i) => {
+            const isHome = link.to === "/" && !link.scrollId;
             const active = link.scrollId
               ? false
               : location.pathname === link.to;
@@ -104,12 +106,15 @@ export default function Navbar() {
                 data-ocid="nav.link"
                 className="animate-slide-top px-4 py-2 text-[22px] font-medium font-inter transition-colors duration-200"
                 style={{
-                  color: active ? "#8081d8" : "#fff",
+                  color: isHome ? "#8081d8" : active ? "#8081d8" : "#fff",
                   ["--delay" as string]: `${(i + 1) * 0.2}s`,
                 }}
                 onMouseEnter={(e) => setColor(e.currentTarget, "#8081d8")}
                 onMouseLeave={(e) =>
-                  setColor(e.currentTarget, active ? "#8081d8" : "#fff")
+                  setColor(
+                    e.currentTarget,
+                    isHome || active ? "#8081d8" : "#fff",
+                  )
                 }
               >
                 {link.label}
@@ -148,8 +153,9 @@ export default function Navbar() {
           className="md:hidden absolute top-16 right-4 rounded-xl shadow-lg py-3 px-4 flex flex-col gap-1 z-50 w-44"
           style={{ backgroundColor: "#051129" }}
         >
-          {NAV_LINKS.map((link) =>
-            link.scrollId ? (
+          {NAV_LINKS.map((link) => {
+            const isHome = link.to === "/" && !link.scrollId;
+            return link.scrollId ? (
               <a
                 key={link.to}
                 href={link.to}
@@ -168,14 +174,17 @@ export default function Navbar() {
                 to={link.to}
                 onClick={() => setOpen(false)}
                 data-ocid="nav.link"
-                className="py-2 text-[20px] font-inter text-center text-white transition-colors duration-200"
+                className="py-2 text-[20px] font-inter text-center transition-colors duration-200"
+                style={{ color: isHome ? "#8081d8" : "#fff" }}
                 onMouseEnter={(e) => setColor(e.currentTarget, "#8081d8")}
-                onMouseLeave={(e) => setColor(e.currentTarget, "#fff")}
+                onMouseLeave={(e) =>
+                  setColor(e.currentTarget, isHome ? "#8081d8" : "#fff")
+                }
               >
                 {link.label}
               </Link>
-            ),
-          )}
+            );
+          })}
           <Link
             to="/login"
             onClick={() => setOpen(false)}
